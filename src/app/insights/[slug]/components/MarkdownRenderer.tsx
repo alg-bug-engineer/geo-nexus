@@ -1,3 +1,6 @@
+/*
+ * @filename: alg-bug-engineer/geo-nexus/geo-nexus-c0022f76688310702ab7bc516010d393a92d80dc/src/app/insights/[slug]/components/MarkdownRenderer.tsx
+ */
 // src/app/insights/[slug]/components/MarkdownRenderer.tsx
 'use client';
 

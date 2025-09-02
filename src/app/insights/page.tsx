@@ -1,3 +1,6 @@
+/*
+ * @filename: alg-bug-engineer/geo-nexus/geo-nexus-c0022f76688310702ab7bc516010d393a92d80dc/src/app/insights/page.tsx
+ */
 // src/app/insights/page.tsx (修复按钮颜色和排序问题)
 
 import type { Metadata } from 'next';

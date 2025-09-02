@@ -1,3 +1,6 @@
+/*
+ * @filename: alg-bug-engineer/geo-nexus/geo-nexus-c0022f76688310702ab7bc516010d393a92d80dc/src/app/consulting/page.tsx
+ */
 // src/app/consulting/page.tsx
 "use client"; // <-- IMPORTANT: This makes the component interactive
 

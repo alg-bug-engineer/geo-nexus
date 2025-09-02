@@ -1,3 +1,6 @@
+/*
+ * @filename: alg-bug-engineer/geo-nexus/geo-nexus-c0022f76688310702ab7bc516010d393a92d80dc/src/app/layout.tsx
+ */
 // src/app/layout.tsx
 import type { Metadata } from 'next'
 import Script from 'next/script'; // 1. Import the Script component

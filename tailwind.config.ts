@@ -1,3 +1,6 @@
+/*
+ * @filename: alg-bug-engineer/geo-nexus/geo-nexus-c0022f76688310702ab7bc516010d393a92d80dc/tailwind.config.ts
+ */
 // tailwind.config.ts
 import type { Config } from 'tailwindcss'
 
@@ -10,15 +13,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'text-light': '#cbd5e1', // 辅助文本色 (slate-300)
-        'primary': '#1A1D24',      // A dark, modern background
-        'secondary': '#2A2F3A',    // A slightly lighter shade for containers/blocks
-        'accent': '#00A8E8',       // A vibrant blue for buttons and highlights
-        'text-main': '#F0F0F0',    // Off-white for primary text
-        'text-secondary': '#B0B0B0', // A softer gray for secondary text
-        // --- NEW: Tech Blue Theme ---
-        'primary-blue': '#0D1B2A', // A deep, tech-inspired navy blue
-        'accent-blue': '#00C4FF',   // A vibrant, electric light blue for accents
+        'primary': '#0a0a0a', // 更深的黑色背景
+        'secondary': '#1a1a1a', // 用于容器的深灰色
+        'accent': '#00aaff', // 鲜艳的蓝色作为强调色
+        'text-main': '#f0f0f0', // 主文本使用灰白色
+        'text-secondary': '#a0a0a0', // 辅助文本使用浅灰色
+        'text-light': '#d0d0d0', // 更亮的辅助文本
+        // --- 新增: 科技感蓝色主题 ---
+        'primary-blue': '#0d1b2a', // 深海军蓝
+        'accent-blue': '#00c4ff',   // 亮蓝色
       },
       // 扩展字体系列
       fontFamily: {
@@ -36,7 +39,7 @@ const config: Config = {
         'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
         'medium': '0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 30px -5px rgba(0, 0, 0, 0.05)',
         'strong': '0 10px 40px -10px rgba(0, 0, 0, 0.15), 0 20px 50px -15px rgba(0, 0, 0, 0.1)',
-        'glow': '0 0 20px rgba(0, 168, 232, 0.3)',
+        'glow': '0 0 20px rgba(0, 170, 255, 0.3)',
         'glow-blue': '0 0 20px rgba(0, 196, 255, 0.4)',
       },
       // 扩展动画
@@ -83,8 +86,8 @@ const config: Config = {
       // 扩展渐变
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-tech': 'linear-gradient(135deg, #0D1B2A 0%, #1A1D24 50%, #2A2F3A 100%)',
-        'gradient-accent': 'linear-gradient(135deg, #00A8E8 0%, #00C4FF 100%)',
+        'gradient-tech': 'linear-gradient(135deg, #0d1b2a 0%, #1a1a1a 50%, #2a2f3a 100%)',
+        'gradient-accent': 'linear-gradient(135deg, #00aaff 0%, #00c4ff 100%)',
       },
       // 扩展边框半径
       borderRadius: {
@@ -102,10 +105,11 @@ const config: Config = {
         DEFAULT: {
           css: {
             maxWidth: 'none',
-            color: '#374151',
+            color: '#d0d0d0', // 默认为浅灰色
             lineHeight: '1.7',
             // 自定义标题样式
             'h1, h2, h3, h4, h5, h6': {
+              color: '#f0f0f0', // 标题使用灰白色
               fontWeight: '700',
               letterSpacing: '-0.025em',
             },
@@ -143,15 +147,16 @@ const config: Config = {
             blockquote: {
               fontStyle: 'italic',
               borderLeftWidth: '4px',
-              borderLeftColor: '#00A8E8',
+              borderLeftColor: '#00aaff',
               paddingLeft: '1rem',
-              backgroundColor: '#f8fafc',
+              backgroundColor: '#1a1a1a', // 深灰色背景
               padding: '1rem',
               margin: '1.5rem 0',
             },
             // 自定义代码样式
             code: {
-              backgroundColor: '#f1f5f9',
+              backgroundColor: '#2a2f3a', // 较浅的深灰色
+              color: '#f0f0f0', // 灰白色文本
               padding: '0.125rem 0.25rem',
               borderRadius: '0.25rem',
               fontSize: '0.875rem',
@@ -164,8 +169,8 @@ const config: Config = {
               content: '""',
             },
             pre: {
-              backgroundColor: '#1e293b',
-              color: '#e2e8f0',
+              backgroundColor: '#1a1a1a',
+              color: '#f0f0f0',
               padding: '1rem',
               borderRadius: '0.5rem',
               overflow: 'auto',
@@ -180,11 +185,11 @@ const config: Config = {
             },
             // 自定义链接样式
             a: {
-              color: '#00A8E8',
+              color: '#00aaff',
               textDecoration: 'underline',
               fontWeight: '500',
               '&:hover': {
-                color: '#00C4FF',
+                color: '#00c4ff',
                 textDecoration: 'none',
               },
             },
@@ -195,80 +200,33 @@ const config: Config = {
               margin: '1.5rem 0',
             },
             'thead th': {
-              backgroundColor: '#f8fafc',
+              backgroundColor: '#2a2f3a',
               fontWeight: '600',
               textAlign: 'left',
               padding: '0.75rem',
-              borderBottom: '2px solid #e2e8f0',
+              borderBottom: '2px solid #3a3f4a', // 较深的边框色
             },
             'tbody td': {
               padding: '0.75rem',
-              borderBottom: '1px solid #e2e8f0',
+              borderBottom: '1px solid #3a3f4a',
             },
             'tbody tr:hover': {
-              backgroundColor: '#f8fafc',
+              backgroundColor: '#2a2f3a',
             },
             // 自定义分隔线样式
             hr: {
-              borderColor: '#e2e8f0',
+              borderColor: '#3a3f4a',
               borderTopWidth: '1px',
               margin: '2rem 0',
             },
             // 自定义强调样式
             strong: {
-              color: '#1f2937',
+              color: '#f0f0f0',
               fontWeight: '600',
             },
             em: {
-              color: '#4b5563',
+              color: '#a0a0a0',
               fontStyle: 'italic',
-            },
-          },
-        },
-        // 暗色主题变体
-        dark: {
-          css: {
-            color: '#e2e8f0',
-            'h1, h2, h3, h4, h5, h6': {
-              color: '#f1f5f9',
-            },
-            p: {
-              color: '#cbd5e1',
-            },
-            strong: {
-              color: '#f1f5f9',
-            },
-            em: {
-              color: '#94a3b8',
-            },
-            blockquote: {
-              backgroundColor: '#1e293b',
-              borderLeftColor: '#00C4FF',
-              color: '#cbd5e1',
-            },
-            code: {
-              backgroundColor: '#334155',
-              color: '#e2e8f0',
-            },
-            a: {
-              color: '#00C4FF',
-              '&:hover': {
-                color: '#38bdf8',
-              },
-            },
-            'thead th': {
-              backgroundColor: '#1e293b',
-              color: '#f1f5f9',
-              borderBottomColor: '#334155',
-            },
-            'tbody td': {
-              borderBottomColor: '#334155',
-            },
-            'tbody tr:hover': {
-              backgroundColor: '#1e293b',
-            },
-            hr: {
-              borderColor: '#334155',
             },
           },
         },

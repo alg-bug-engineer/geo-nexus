@@ -1,3 +1,6 @@
+/*
+ * @filename: alg-bug-engineer/geo-nexus/geo-nexus-c0022f76688310702ab7bc516010d393a92d80dc/src/components/NavigationCard.tsx
+ */
 import React from 'react';
 import Image from 'next/image';
 import { NavItem } from '@/data/navigation';
