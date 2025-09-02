@@ -1,4 +1,4 @@
-// src/app/tools/reviews/[slug]/page.tsx (优化配色版本)
+// src/app/tools/reviews/[slug]/page.tsx (优化配色并已添加 Review Schema)
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -104,8 +104,8 @@ const markdownComponents: Components = {
     </pre>
   ),
   a: ({ href, children }) => (
-    <a 
-      href={href} 
+    <a
+      href={href}
       className="text-accent hover:text-accent-secondary underline transition-colors"
       target="_blank"
       rel="noopener noreferrer"
@@ -208,21 +208,57 @@ function ScoreBadge({ score }: { score: number }) {
 export default async function ToolReviewPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const tool = await getSingleTool(slug);
-  
+
   if (!tool) {
     notFound();
   }
-  
+
   const currentYear = new Date().getFullYear();
-  
+
+  // ✨ 新增: Review Schema 定义
+  const reviewSchema = {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "itemReviewed": {
+      "@type": "SoftwareApplication",
+      "name": tool.name,
+      "applicationCategory": "Generative Engine Optimization"
+    },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": tool.overall_score.toString(),
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "GEO Nexus"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "GEO Nexus",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.ai-knowledgepoints.cn/logo.svg"
+      }
+    },
+    "description": tool.summary,
+    "reviewBody": tool.review_content
+  };
+
   return (
     <div className="min-h-screen bg-primary">
+      {/* ✨ 新增: 将 Review Schema 注入到页面的 <head> 中 */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+      />
       <div className="max-w-5xl mx-auto py-8 px-4">
         {/* Header */}
         <header className="mb-8">
           <div className="mb-4">
-            <Link 
-              href="/tools" 
+            <Link
+              href="/tools"
               className="text-accent hover:text-accent-secondary text-sm font-medium inline-flex items-center gap-2 transition-colors group"
             >
               <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -232,7 +268,7 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
             </Link>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-text-main leading-tight mb-2">
-            {tool.name} 
+            {tool.name}
             <span className="bg-gradient-to-r from-accent to-accent-secondary bg-clip-text text-transparent"> 全面评测</span>
           </h1>
           <p className="text-xl text-text-secondary mt-3">
@@ -246,7 +282,7 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
             <div className="flex-shrink-0">
               <ScoreBadge score={tool.overall_score} />
             </div>
-            
+
             <div className="flex-grow space-y-6">
               <div>
                 <h2 className="text-2xl font-semibold text-text-main mb-3 flex items-center gap-2">
@@ -257,7 +293,7 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
                 </h2>
                 <p className="text-lg text-text-secondary leading-relaxed">{tool.summary}</p>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-success/10 backdrop-blur-sm p-6 rounded-xl border border-success/20">
                   <h4 className="text-success font-semibold mb-3 flex items-center gap-2">
@@ -265,23 +301,23 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
                     主要优点
                   </h4>
                   <div className="text-text-secondary prose-sm">
-                    <ReactMarkdown 
-                      remarkPlugins={[remarkGfm]} 
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
                       components={markdownComponents}
                     >
                       {tool.pros}
                     </ReactMarkdown>
                   </div>
                 </div>
-                
+
                 <div className="bg-error/10 backdrop-blur-sm p-6 rounded-xl border border-error/20">
                   <h4 className="text-error font-semibold mb-3 flex items-center gap-2">
                     <div className="w-2 h-2 bg-error rounded-full"></div>
                     主要缺点
                   </h4>
                   <div className="text-text-secondary prose-sm">
-                    <ReactMarkdown 
-                      remarkPlugins={[remarkGfm]} 
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
                       components={markdownComponents}
                     >
                       {tool.cons}
@@ -289,9 +325,9 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
                   </div>
                 </div>
               </div>
-              
+
               <div className="pt-4">
-                <Link 
+                <Link
                   href={tool.website_url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -317,8 +353,8 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
             详细评测
           </h2>
           <article className="prose prose-lg max-w-none">
-            <ReactMarkdown 
-              remarkPlugins={[remarkGfm]} 
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
               components={markdownComponents}
             >
               {tool.review_content}
@@ -328,8 +364,8 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
 
         {/* Bottom Navigation */}
         <div className="mt-8 text-center">
-          <Link 
-            href="/tools" 
+          <Link
+            href="/tools"
             className="inline-flex items-center gap-2 text-accent hover:text-accent-secondary font-medium transition-colors group"
           >
             <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

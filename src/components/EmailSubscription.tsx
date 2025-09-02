@@ -34,10 +34,7 @@ export const EmailSubscription = () => {
 
             {/* 标题 */}
             <h2 className="text-4xl md:text-5xl font-bold text-text-main mb-4">
-              不错过任何一个
-              <span className="bg-gradient-to-r from-accent to-accent-secondary bg-clip-text text-transparent">
-                {" "}GEO趋势
-              </span>
+              不错过任何一个GEO趋势
             </h2>
             
             {/* 副标题 */}
