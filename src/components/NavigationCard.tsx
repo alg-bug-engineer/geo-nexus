@@ -34,4 +34,3 @@ const NavigationCard: React.FC<NavigationCardProps> = ({ item }) => {
 };
 
 export default NavigationCard;
-

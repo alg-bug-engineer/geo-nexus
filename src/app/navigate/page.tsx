@@ -88,4 +88,3 @@ const NavigatePage = () => {
 };
 
 export default NavigatePage;
-
