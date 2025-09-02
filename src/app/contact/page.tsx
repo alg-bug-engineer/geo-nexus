@@ -1,7 +1,4 @@
-/*
- * @filename: alg-bug-engineer/geo-nexus/geo-nexus-c0022f76688310702ab7bc516010d393a92d80dc/src/app/contact/page.tsx
- */
-// src/app/contact/page.tsx
+// src/app/contact/page.tsx (优化配色版本)
 'use client';
 
 import { useState } from 'react';
@@ -48,20 +45,20 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         
         {/* 左侧：联系信息 */}
-        <div className="bg-secondary border border-accent/20 rounded-2xl p-8 shadow-soft">
+        <div className="bg-secondary/80 backdrop-blur-sm border border-border-primary rounded-2xl p-8 shadow-dark-medium">
           <header className="mb-8">
-            <h1 className="text-4xl font-bold text-text-main mb-4">
+            <h1 className="text-4xl font-bold text-text-main mb-4 bg-gradient-to-r from-accent to-accent-secondary bg-clip-text text-transparent">
               联系我们
             </h1>
-            <p className="text-lg text-text-light">
+            <p className="text-lg text-text-secondary">
               有问题或建议？我们很乐意听到您的声音
             </p>
           </header>
 
           <div className="space-y-6">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 dark:bg-blue-900/30">
-                <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 bg-gradient-to-br from-accent/20 to-accent/10 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0 border border-accent/20">
+                <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
@@ -73,8 +70,8 @@ export default function ContactPage() {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0 dark:bg-emerald-900/30">
-                <svg className="w-6 h-6 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 bg-gradient-to-br from-success/20 to-success/10 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0 border border-success/20">
+                <svg className="w-6 h-6 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
@@ -87,8 +84,8 @@ export default function ContactPage() {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0 dark:bg-purple-900/30">
-                <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 bg-gradient-to-br from-accent-secondary/20 to-accent-secondary/10 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0 border border-accent-secondary/20">
+                <svg className="w-6 h-6 text-accent-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -100,8 +97,8 @@ export default function ContactPage() {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0 dark:bg-orange-900/30">
-                <svg className="w-6 h-6 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 bg-gradient-to-br from-warning/20 to-warning/10 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0 border border-warning/20">
+                <svg className="w-6 h-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                 </svg>
               </div>
@@ -115,8 +112,13 @@ export default function ContactPage() {
         </div>
 
         {/* 右侧：联系表单 */}
-        <div className="bg-secondary border border-accent/20 rounded-2xl p-8 shadow-soft">
-          <h2 className="text-2xl font-bold text-text-main mb-6">发送消息</h2>
+        <div className="bg-secondary/80 backdrop-blur-sm border border-border-primary rounded-2xl p-8 shadow-dark-medium">
+          <h2 className="text-2xl font-bold text-text-main mb-6 flex items-center gap-2">
+            <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
+            发送消息
+          </h2>
           
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* 姓名 */}
@@ -131,7 +133,7 @@ export default function ContactPage() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
+                className="w-full px-4 py-3 border-2 border-border-secondary rounded-xl bg-tertiary/50 backdrop-blur-sm text-text-main placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all duration-200"
                 placeholder="请输入您的姓名"
               />
             </div>
@@ -148,7 +150,7 @@ export default function ContactPage() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
+                className="w-full px-4 py-3 border-2 border-border-secondary rounded-xl bg-tertiary/50 backdrop-blur-sm text-text-main placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all duration-200"
                 placeholder="your@email.com"
               />
             </div>
@@ -164,15 +166,15 @@ export default function ContactPage() {
                 value={formData.subject}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:focus:ring-blue-400 dark:focus:border-blue-400"
+                className="w-full px-4 py-3 border-2 border-border-secondary rounded-xl bg-tertiary/50 backdrop-blur-sm text-text-main focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all duration-200"
               >
-                <option value="">请选择主题</option>
-                <option value="general">一般咨询</option>
-                <option value="technical">技术支持</option>
-                <option value="business">商务合作</option>
-                <option value="feedback">意见反馈</option>
-                <option value="bug">错误报告</option>
-                <option value="other">其他</option>
+                <option value="" className="bg-tertiary text-text-muted">请选择主题</option>
+                <option value="general" className="bg-tertiary text-text-main">一般咨询</option>
+                <option value="technical" className="bg-tertiary text-text-main">技术支持</option>
+                <option value="business" className="bg-tertiary text-text-main">商务合作</option>
+                <option value="feedback" className="bg-tertiary text-text-main">意见反馈</option>
+                <option value="bug" className="bg-tertiary text-text-main">错误报告</option>
+                <option value="other" className="bg-tertiary text-text-main">其他</option>
               </select>
             </div>
 
@@ -188,14 +190,14 @@ export default function ContactPage() {
                 onChange={handleChange}
                 required
                 rows={6}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
+                className="w-full px-4 py-3 border-2 border-border-secondary rounded-xl bg-tertiary/50 backdrop-blur-sm text-text-main placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent resize-vertical transition-all duration-200"
                 placeholder="请详细描述您的问题或需求..."
               ></textarea>
             </div>
 
             {/* 提交状态消息 */}
             {submitStatus === 'success' && (
-              <div className="p-4 bg-emerald-100 border border-emerald-200 rounded-xl text-emerald-700 dark:bg-emerald-900/30 dark:border-emerald-800 dark:text-emerald-400">
+              <div className="p-4 bg-success/10 border border-success/20 rounded-xl text-success backdrop-blur-sm">
                 <div className="flex items-center gap-2">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -206,7 +208,7 @@ export default function ContactPage() {
             )}
 
             {submitStatus === 'error' && (
-              <div className="p-4 bg-red-100 border border-red-200 rounded-xl text-red-700 dark:bg-red-900/30 dark:border-red-800 dark:text-red-400">
+              <div className="p-4 bg-error/10 border border-error/20 rounded-xl text-error backdrop-blur-sm">
                 <div className="flex items-center gap-2">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -220,7 +222,7 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={isSubmitting || !formData.name || !formData.email || !formData.subject || !formData.message}
-              className="w-full px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 active:bg-blue-800 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200 shadow-lg shadow-blue-600/25 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center gap-2"
+              className="w-full px-8 py-4 bg-gradient-to-r from-accent to-accent-secondary text-primary rounded-xl hover:shadow-glow disabled:from-text-muted disabled:to-text-muted disabled:cursor-not-allowed transition-all duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary flex items-center justify-center gap-2 disabled:shadow-none"
             >
               {isSubmitting ? (
                 <>

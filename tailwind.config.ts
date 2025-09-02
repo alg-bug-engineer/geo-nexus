@@ -1,6 +1,3 @@
-/*
- * @filename: alg-bug-engineer/geo-nexus/geo-nexus-c0022f76688310702ab7bc516010d393a92d80dc/tailwind.config.ts
- */
 // tailwind.config.ts
 import type { Config } from 'tailwindcss'
 
@@ -13,15 +10,35 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'primary': '#0a0a0a', // 更深的黑色背景
-        'secondary': '#1a1a1a', // 用于容器的深灰色
-        'accent': '#00aaff', // 鲜艳的蓝色作为强调色
-        'text-main': '#f0f0f0', // 主文本使用灰白色
-        'text-secondary': '#a0a0a0', // 辅助文本使用浅灰色
-        'text-light': '#d0d0d0', // 更亮的辅助文本
-        // --- 新增: 科技感蓝色主题 ---
-        'primary-blue': '#0d1b2a', // 深海军蓝
-        'accent-blue': '#00c4ff',   // 亮蓝色
+        // 主背景色 - 使用深蓝灰色而非纯黑
+        'primary': '#0f172a', // slate-900 的现代化变体
+        // 次要背景色 - 用于卡片和容器
+        'secondary': '#1e293b', // slate-800 的现代化变体
+        // 第三层背景色 - 用于更深层的容器
+        'tertiary': '#334155', // slate-700
+        // 主强调色 - 现代蓝色
+        'accent': '#3b82f6', // blue-500
+        'accent-hover': '#2563eb', // blue-600
+        // 次要强调色 - 青色
+        'accent-secondary': '#06b6d4', // cyan-500
+        // 主文本色
+        'text-main': '#f8fafc', // slate-50
+        // 次要文本色
+        'text-secondary': '#cbd5e1', // slate-300
+        // 浅色文本
+        'text-light': '#94a3b8', // slate-400
+        // 静音文本
+        'text-muted': '#64748b', // slate-500
+        // 科技感蓝色主题
+        'primary-blue': '#0f172a', // 与主色保持一致
+        'accent-blue': '#3b82f6',   // 与主强调色保持一致
+        // 状态颜色
+        'success': '#10b981', // emerald-500
+        'warning': '#f59e0b', // amber-500
+        'error': '#ef4444', // red-500
+        // 边框颜色
+        'border-primary': '#334155', // slate-700
+        'border-secondary': '#475569', // slate-600
       },
       // 扩展字体系列
       fontFamily: {
@@ -34,13 +51,20 @@ const config: Config = {
         '88': '22rem',
         '128': '32rem',
       },
-      // 扩展阴影
+      // 扩展阴影 - 为深色主题优化
       boxShadow: {
-        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
-        'medium': '0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 30px -5px rgba(0, 0, 0, 0.05)',
-        'strong': '0 10px 40px -10px rgba(0, 0, 0, 0.15), 0 20px 50px -15px rgba(0, 0, 0, 0.1)',
-        'glow': '0 0 20px rgba(0, 170, 255, 0.3)',
-        'glow-blue': '0 0 20px rgba(0, 196, 255, 0.4)',
+        'soft': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+        'medium': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        'large': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        'inner': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+        'glow': '0 0 20px rgba(59, 130, 246, 0.3)',
+        'glow-blue': '0 0 20px rgba(59, 130, 246, 0.4)',
+        'glow-cyan': '0 0 20px rgba(6, 182, 212, 0.3)',
+        // 深色主题特殊阴影
+        'dark-soft': '0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2)',
+        'dark-medium': '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)',
+        'dark-large': '0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2)',
       },
       // 扩展动画
       animation: {
@@ -50,6 +74,7 @@ const config: Config = {
         'pulse-soft': 'pulse 3s ease-in-out infinite',
         'blob': 'blob 7s infinite',
         'float': 'float 6s ease-in-out infinite',
+        'shimmer': 'shimmer 2s infinite',
       },
       keyframes: {
         fadeIn: {
@@ -82,12 +107,24 @@ const config: Config = {
             transform: 'translateY(-20px)',
           },
         },
+        shimmer: {
+          '0%': {
+            'background-position': '-1000px 0',
+          },
+          '100%': {
+            'background-position': '1000px 0',
+          },
+        },
       },
       // 扩展渐变
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-tech': 'linear-gradient(135deg, #0d1b2a 0%, #1a1a1a 50%, #2a2f3a 100%)',
-        'gradient-accent': 'linear-gradient(135deg, #00aaff 0%, #00c4ff 100%)',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-primary': 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+        'gradient-secondary': 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+        'gradient-accent': 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)',
+        'gradient-hero': 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
+        'shimmer': 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%)',
       },
       // 扩展边框半径
       borderRadius: {
@@ -105,11 +142,11 @@ const config: Config = {
         DEFAULT: {
           css: {
             maxWidth: 'none',
-            color: '#d0d0d0', // 默认为浅灰色
+            color: '#cbd5e1', // text-secondary
             lineHeight: '1.7',
             // 自定义标题样式
             'h1, h2, h3, h4, h5, h6': {
-              color: '#f0f0f0', // 标题使用灰白色
+              color: '#f8fafc', // text-main
               fontWeight: '700',
               letterSpacing: '-0.025em',
             },
@@ -147,16 +184,17 @@ const config: Config = {
             blockquote: {
               fontStyle: 'italic',
               borderLeftWidth: '4px',
-              borderLeftColor: '#00aaff',
+              borderLeftColor: '#3b82f6',
               paddingLeft: '1rem',
-              backgroundColor: '#1a1a1a', // 深灰色背景
+              backgroundColor: '#1e293b',
               padding: '1rem',
               margin: '1.5rem 0',
+              borderRadius: '0.5rem',
             },
             // 自定义代码样式
             code: {
-              backgroundColor: '#2a2f3a', // 较浅的深灰色
-              color: '#f0f0f0', // 灰白色文本
+              backgroundColor: '#334155',
+              color: '#f8fafc',
               padding: '0.125rem 0.25rem',
               borderRadius: '0.25rem',
               fontSize: '0.875rem',
@@ -169,13 +207,14 @@ const config: Config = {
               content: '""',
             },
             pre: {
-              backgroundColor: '#1a1a1a',
-              color: '#f0f0f0',
+              backgroundColor: '#1e293b',
+              color: '#f8fafc',
               padding: '1rem',
               borderRadius: '0.5rem',
               overflow: 'auto',
               fontSize: '0.875rem',
               lineHeight: '1.7',
+              border: '1px solid #334155',
             },
             'pre code': {
               backgroundColor: 'transparent',
@@ -185,11 +224,11 @@ const config: Config = {
             },
             // 自定义链接样式
             a: {
-              color: '#00aaff',
+              color: '#3b82f6',
               textDecoration: 'underline',
               fontWeight: '500',
               '&:hover': {
-                color: '#00c4ff',
+                color: '#06b6d4',
                 textDecoration: 'none',
               },
             },
@@ -198,34 +237,39 @@ const config: Config = {
               width: '100%',
               borderCollapse: 'collapse',
               margin: '1.5rem 0',
+              backgroundColor: '#1e293b',
+              borderRadius: '0.5rem',
+              overflow: 'hidden',
             },
             'thead th': {
-              backgroundColor: '#2a2f3a',
+              backgroundColor: '#334155',
               fontWeight: '600',
               textAlign: 'left',
               padding: '0.75rem',
-              borderBottom: '2px solid #3a3f4a', // 较深的边框色
+              borderBottom: '1px solid #475569',
+              color: '#f8fafc',
             },
             'tbody td': {
               padding: '0.75rem',
-              borderBottom: '1px solid #3a3f4a',
+              borderBottom: '1px solid #334155',
+              color: '#cbd5e1',
             },
             'tbody tr:hover': {
-              backgroundColor: '#2a2f3a',
+              backgroundColor: '#334155',
             },
             // 自定义分隔线样式
             hr: {
-              borderColor: '#3a3f4a',
+              borderColor: '#334155',
               borderTopWidth: '1px',
               margin: '2rem 0',
             },
             // 自定义强调样式
             strong: {
-              color: '#f0f0f0',
+              color: '#f8fafc',
               fontWeight: '600',
             },
             em: {
-              color: '#a0a0a0',
+              color: '#94a3b8',
               fontStyle: 'italic',
             },
           },
@@ -275,9 +319,6 @@ const config: Config = {
   },
   plugins: [
     require('@tailwindcss/typography'),
-    // 可选：添加其他有用的插件
-    // require('@tailwindcss/forms'),
-    // require('@tailwindcss/aspect-ratio'),
   ],
   // 启用暗色模式支持
   darkMode: 'class',
