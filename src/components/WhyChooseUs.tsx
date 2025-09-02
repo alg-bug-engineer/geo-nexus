@@ -47,10 +47,7 @@ export const WhyChooseUs = () => {
         {/* 标题区域 */}
         <div className="mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-text-main mb-6">
-            为什么选择
-            <span className="bg-gradient-to-r from-accent via-accent-secondary to-success bg-clip-text text-transparent">
-              {" "}我们？
-            </span>
+            为什么选择我们？
           </h2>
           <p className="text-lg md:text-xl text-text-secondary mb-4 max-w-3xl mx-auto">
             我们提供最深度、最前沿、最客观的 GEO 洞察
