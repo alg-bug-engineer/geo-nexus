@@ -53,7 +53,6 @@ export enum SortOption {
 export const SORT_CONFIG = {
   [SortOption.LATEST]: {
     label: '最新发布',
-    // 移除了 featured 字段，改为按发布时间降序排列
     sorts: ['publishedAt:desc', 'createdAt:desc']
   },
   [SortOption.OLDEST]: {
@@ -76,13 +75,15 @@ export async function getArticlesPaginated({
   pageSize = 12,
   sortBy = SortOption.LATEST,
   category,
-  searchTerm
+  searchTerm,
+  tag // 新增 tag 参数
 }: {
   page?: number;
   pageSize?: number;
   sortBy?: SortOption;
   category?: string;
   searchTerm?: string;
+  tag?: string; // 新增 tag 类型
 }): Promise<{
   articles: ProcessedArticle[];
   totalArticles: number;
@@ -91,14 +92,11 @@ export async function getArticlesPaginated({
 }> {
   const STRAPI_URL = 'https://api.ai-knowledgepoints.cn/api/articles';
   
-  // 构建查询参数
   const params = new URLSearchParams();
   
-  // 分页参数
   params.append('pagination[page]', page.toString());
   params.append('pagination[pageSize]', pageSize.toString());
   
-  // 排序参数 - 使用修复后的配置
   const sortConfig = SORT_CONFIG[sortBy];
   if (sortConfig && sortConfig.sorts) {
     sortConfig.sorts.forEach((sort, index) => {
@@ -106,15 +104,17 @@ export async function getArticlesPaginated({
     });
   }
   
-  // 过滤已发布的文章
   params.append('filters[publishedAt][$notNull]', 'true');
   
-  // 分类过滤
   if (category) {
     params.append('filters[category][$eq]', category);
   }
   
-  // 搜索过滤
+  // [新增] 标签过滤逻辑
+  if (tag) {
+    params.append('filters[tags][$containsi]', tag);
+  }
+  
   if (searchTerm) {
     params.append('$or[0][title][$containsi]', searchTerm);
     params.append('$or[1][summary][$containsi]', searchTerm);
@@ -124,8 +124,6 @@ export async function getArticlesPaginated({
   const apiUrl = `${STRAPI_URL}?${params.toString()}`;
   
   try {
-    console.log('🔍 API URL:', apiUrl);
-    
     const response = await fetch(apiUrl, { 
       cache: 'no-store',
       headers: {
@@ -137,16 +135,10 @@ export async function getArticlesPaginated({
       const errorText = await response.text();
       console.error(`❌ API request failed with status: ${response.status}`);
       console.error('Response:', errorText);
-      return {
-        articles: [],
-        totalArticles: 0,
-        totalPages: 0,
-        currentPage: page
-      };
+      return { articles: [], totalArticles: 0, totalPages: 0, currentPage: page };
     }
     
     const data: StrapiResponse = await response.json();
-    console.log('✅ API response successful');
     
     if (data.data) {
       const articles: ProcessedArticle[] = data.data.map((item: StrapiArticleData) => ({
@@ -164,28 +156,13 @@ export async function getArticlesPaginated({
       const totalArticles = data.meta?.pagination?.total ?? 0;
       const totalPages = data.meta?.pagination?.pageCount ?? 0;
       
-      return {
-        articles,
-        totalArticles,
-        totalPages,
-        currentPage: page
-      };
+      return { articles, totalArticles, totalPages, currentPage: page };
     }
     
-    return {
-      articles: [],
-      totalArticles: 0,
-      totalPages: 0,
-      currentPage: page
-    };
+    return { articles: [], totalArticles: 0, totalPages: 0, currentPage: page };
     
   } catch (error) {
     console.error('❌ Error fetching articles:', error);
-    return {
-      articles: [],
-      totalArticles: 0,
-      totalPages: 0,
-      currentPage: page
-    };
+    return { articles: [], totalArticles: 0, totalPages: 0, currentPage: page };
   }
 }

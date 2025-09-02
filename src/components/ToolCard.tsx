@@ -56,7 +56,7 @@ export const ToolCard = ({ slug, name, summary, score }: ToolCardProps) => {
             <div className="flex-shrink-0">
               <div className={`bg-gradient-to-br ${getScoreColor(score)} px-4 py-3 rounded-xl shadow-dark-medium flex flex-col items-center min-w-[4.5rem] border border-white/20 relative overflow-hidden group-hover:scale-105 transition-transform duration-300`}>
                 {/* 徽章装饰 */}
-                <div className="absolute inset-0 bg-shimmer animate-shimmer opacity-20"></div>
+                <div className="absolute inset-0 bg-shimmer opacity-20"></div>
                 <div className="relative z-10">
                   <div className="text-lg font-bold leading-none mb-0.5">{score.toFixed(1)}</div>
                   <div className="text-xs opacity-90 leading-none">{getScoreText(score)}</div>

@@ -1,4 +1,4 @@
-// tailwind.config.ts
+// tailwind.config.ts (已移除动画)
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
@@ -66,56 +66,6 @@ const config: Config = {
         'dark-medium': '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)',
         'dark-large': '0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2)',
       },
-      // 扩展动画
-      animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'slide-up': 'slideUp 0.6s ease-out',
-        'bounce-slow': 'bounce 2s infinite',
-        'pulse-soft': 'pulse 3s ease-in-out infinite',
-        'blob': 'blob 7s infinite',
-        'float': 'float 6s ease-in-out infinite',
-        'shimmer': 'shimmer 2s infinite',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0', transform: 'translateY(10px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        blob: {
-          '0%': {
-            transform: 'translate(0px, 0px) scale(1)',
-          },
-          '33%': {
-            transform: 'translate(30px, -50px) scale(1.1)',
-          },
-          '66%': {
-            transform: 'translate(-20px, 20px) scale(0.9)',
-          },
-          '100%': {
-            transform: 'translate(0px, 0px) scale(1)',
-          },
-        },
-        float: {
-          '0%, 100%': {
-            transform: 'translateY(0px)',
-          },
-          '50%': {
-            transform: 'translateY(-20px)',
-          },
-        },
-        shimmer: {
-          '0%': {
-            'background-position': '-1000px 0',
-          },
-          '100%': {
-            'background-position': '1000px 0',
-          },
-        },
-      },
       // 扩展渐变
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -144,43 +94,17 @@ const config: Config = {
             maxWidth: 'none',
             color: '#cbd5e1', // text-secondary
             lineHeight: '1.7',
-            // 自定义标题样式
             'h1, h2, h3, h4, h5, h6': {
               color: '#f8fafc', // text-main
               fontWeight: '700',
               letterSpacing: '-0.025em',
             },
-            h1: {
-              fontSize: '2.25rem',
-              marginTop: '0',
-              marginBottom: '1rem',
-              lineHeight: '1.2',
-            },
-            h2: {
-              fontSize: '1.875rem',
-              marginTop: '2rem',
-              marginBottom: '1rem',
-              lineHeight: '1.3',
-            },
-            h3: {
-              fontSize: '1.5rem',
-              marginTop: '1.5rem',
-              marginBottom: '0.75rem',
-              lineHeight: '1.4',
-            },
-            // 自定义段落样式
-            p: {
-              marginTop: '1rem',
-              marginBottom: '1rem',
-            },
-            // 自定义列表样式
-            'ul > li': {
-              paddingLeft: '0.375rem',
-            },
-            'ol > li': {
-              paddingLeft: '0.375rem',
-            },
-            // 自定义引用样式
+            h1: { fontSize: '2.25rem', marginTop: '0', marginBottom: '1rem', lineHeight: '1.2' },
+            h2: { fontSize: '1.875rem', marginTop: '2rem', marginBottom: '1rem', lineHeight: '1.3' },
+            h3: { fontSize: '1.5rem', marginTop: '1.5rem', marginBottom: '0.75rem', lineHeight: '1.4' },
+            p: { marginTop: '1rem', marginBottom: '1rem' },
+            'ul > li': { paddingLeft: '0.375rem' },
+            'ol > li': { paddingLeft: '0.375rem' },
             blockquote: {
               fontStyle: 'italic',
               borderLeftWidth: '4px',
@@ -191,7 +115,6 @@ const config: Config = {
               margin: '1.5rem 0',
               borderRadius: '0.5rem',
             },
-            // 自定义代码样式
             code: {
               backgroundColor: '#334155',
               color: '#f8fafc',
@@ -200,12 +123,8 @@ const config: Config = {
               fontSize: '0.875rem',
               fontWeight: '500',
             },
-            'code::before': {
-              content: '""',
-            },
-            'code::after': {
-              content: '""',
-            },
+            'code::before': { content: '""' },
+            'code::after': { content: '""' },
             pre: {
               backgroundColor: '#1e293b',
               color: '#f8fafc',
@@ -216,23 +135,13 @@ const config: Config = {
               lineHeight: '1.7',
               border: '1px solid #334155',
             },
-            'pre code': {
-              backgroundColor: 'transparent',
-              padding: '0',
-              color: 'inherit',
-              fontSize: 'inherit',
-            },
-            // 自定义链接样式
+            'pre code': { backgroundColor: 'transparent', padding: '0', color: 'inherit', fontSize: 'inherit' },
             a: {
               color: '#3b82f6',
               textDecoration: 'underline',
               fontWeight: '500',
-              '&:hover': {
-                color: '#06b6d4',
-                textDecoration: 'none',
-              },
+              '&:hover': { color: '#06b6d4', textDecoration: 'none' },
             },
-            // 自定义表格样式
             table: {
               width: '100%',
               borderCollapse: 'collapse',
@@ -249,69 +158,31 @@ const config: Config = {
               borderBottom: '1px solid #475569',
               color: '#f8fafc',
             },
-            'tbody td': {
-              padding: '0.75rem',
-              borderBottom: '1px solid #334155',
-              color: '#cbd5e1',
-            },
-            'tbody tr:hover': {
-              backgroundColor: '#334155',
-            },
-            // 自定义分隔线样式
-            hr: {
-              borderColor: '#334155',
-              borderTopWidth: '1px',
-              margin: '2rem 0',
-            },
-            // 自定义强调样式
-            strong: {
-              color: '#f8fafc',
-              fontWeight: '600',
-            },
-            em: {
-              color: '#94a3b8',
-              fontStyle: 'italic',
-            },
+            'tbody td': { padding: '0.75rem', borderBottom: '1px solid #334155', color: '#cbd5e1' },
+            'tbody tr:hover': { backgroundColor: '#334155' },
+            hr: { borderColor: '#334155', borderTopWidth: '1px', margin: '2rem 0' },
+            strong: { color: '#f8fafc', fontWeight: '600' },
+            em: { color: '#94a3b8', fontStyle: 'italic' },
           },
         },
-        // 大字体变体
         lg: {
           css: {
             fontSize: '1.125rem',
             lineHeight: '1.8',
-            h1: {
-              fontSize: '2.5rem',
-            },
-            h2: {
-              fontSize: '2rem',
-            },
-            h3: {
-              fontSize: '1.75rem',
-            },
-            p: {
-              marginTop: '1.25rem',
-              marginBottom: '1.25rem',
-            },
+            h1: { fontSize: '2.5rem' },
+            h2: { fontSize: '2rem' },
+            h3: { fontSize: '1.75rem' },
+            p: { marginTop: '1.25rem', marginBottom: '1.25rem' },
           },
         },
-        // 小字体变体
         sm: {
           css: {
             fontSize: '0.875rem',
             lineHeight: '1.6',
-            h1: {
-              fontSize: '1.5rem',
-            },
-            h2: {
-              fontSize: '1.25rem',
-            },
-            h3: {
-              fontSize: '1.125rem',
-            },
-            p: {
-              marginTop: '0.75rem',
-              marginBottom: '0.75rem',
-            },
+            h1: { fontSize: '1.5rem' },
+            h2: { fontSize: '1.25rem' },
+            h3: { fontSize: '1.125rem' },
+            p: { marginTop: '0.75rem', marginBottom: '0.75rem' },
           },
         },
       },
@@ -320,7 +191,6 @@ const config: Config = {
   plugins: [
     require('@tailwindcss/typography'),
   ],
-  // 启用暗色模式支持
   darkMode: 'class',
 }
 

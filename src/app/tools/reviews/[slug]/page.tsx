@@ -191,7 +191,7 @@ function ScoreBadge({ score }: { score: number }) {
 
   return (
     <div className={`bg-gradient-to-br ${getScoreColor(score)} p-6 rounded-xl text-primary text-center shadow-dark-large relative overflow-hidden`}>
-      <div className="absolute inset-0 bg-shimmer animate-shimmer opacity-10"></div>
+      <div className="absolute inset-0 bg-shimmer opacity-10"></div>
       <div className="relative z-10">
         <div className="text-sm opacity-90 mb-1 font-medium">综合评分</div>
         <div className="text-5xl font-bold mb-1">{score.toFixed(1)}</div>
@@ -297,7 +297,7 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center bg-gradient-to-r from-accent to-accent-secondary text-primary font-semibold py-4 px-8 rounded-xl hover:shadow-glow transition-all duration-200 transform hover:-translate-y-0.5 w-full md:w-auto group relative overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-shimmer animate-shimmer opacity-10"></div>
+                  <div className="absolute inset-0 bg-shimmer opacity-10"></div>
                   <span className="relative z-10">访问官方网站</span>
                   <svg className="w-5 h-5 ml-2 relative z-10 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />

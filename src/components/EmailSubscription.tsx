@@ -4,9 +4,9 @@ export const EmailSubscription = () => {
     <section className="py-20 bg-gradient-to-br from-primary via-secondary/20 to-primary relative overflow-hidden">
       {/* 背景装饰 */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-0 left-0 w-72 h-72 bg-accent rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-        <div className="absolute bottom-0 right-0 w-72 h-72 bg-accent-secondary rounded-full mix-blend-multiply filter blur-3xl animate-blob" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-success rounded-full mix-blend-multiply filter blur-3xl animate-blob" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-0 left-0 w-72 h-72 bg-accent rounded-full mix-blend-multiply filter blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-72 h-72 bg-accent-secondary rounded-full mix-blend-multiply filter blur-3xl" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-success rounded-full mix-blend-multiply filter blur-3xl" style={{ animationDelay: '4s' }}></div>
       </div>
 
       {/* 网格背景 */}
@@ -25,7 +25,7 @@ export const EmailSubscription = () => {
             
             {/* 图标装饰 */}
             <div className="flex justify-center mb-6">
-              <div className="w-20 h-20 bg-gradient-to-br from-accent/20 to-accent-secondary/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-accent/20 shadow-glow animate-float">
+              <div className="w-20 h-20 bg-gradient-to-br from-accent/20 to-accent-secondary/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-accent/20 shadow-glow">
                 <svg className="w-10 h-10 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
@@ -98,7 +98,7 @@ export const EmailSubscription = () => {
                 type="submit"
                 className="bg-gradient-to-r from-accent to-accent-secondary text-primary font-bold py-4 px-8 rounded-2xl hover:shadow-glow hover:scale-105 transition-all duration-300 whitespace-nowrap relative overflow-hidden group/btn"
               >
-                <div className="absolute inset-0 bg-shimmer animate-shimmer opacity-20"></div>
+                <div className="absolute inset-0 bg-shimmer opacity-20"></div>
                 <span className="relative z-10 flex items-center gap-2">
                   <svg className="w-5 h-5 group-hover/btn:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

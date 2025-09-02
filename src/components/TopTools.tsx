@@ -53,7 +53,7 @@ const RankBadge = ({ rank }: { rank: number }) => {
 
   return (
     <div className={`bg-gradient-to-br ${getRankStyle(rank)} px-4 py-2 rounded-full text-xs font-bold flex items-center space-x-2 w-fit border border-white/20 relative overflow-hidden`}>
-      <div className="absolute inset-0 bg-shimmer animate-shimmer opacity-20"></div>
+      <div className="absolute inset-0 bg-shimmer opacity-20"></div>
       <span className="relative z-10">{getRankIcon(rank)}</span>
       <span className="relative z-10">TOP {rank}</span>
     </div>
@@ -71,9 +71,9 @@ export const TopTools = async () => {
     <section className="py-20 bg-gradient-to-br from-primary via-secondary/50 to-primary relative overflow-hidden">
       {/* 背景装饰 */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-0 left-0 w-72 h-72 bg-accent rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-        <div className="absolute top-0 right-0 w-72 h-72 bg-accent-secondary rounded-full mix-blend-multiply filter blur-3xl animate-blob" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute bottom-0 left-1/2 w-72 h-72 bg-success rounded-full mix-blend-multiply filter blur-3xl animate-blob" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-0 left-0 w-72 h-72 bg-accent rounded-full mix-blend-multiply filter blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-72 h-72 bg-accent-secondary rounded-full mix-blend-multiply filter blur-3xl" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-0 left-1/2 w-72 h-72 bg-success rounded-full mix-blend-multiply filter blur-3xl" style={{ animationDelay: '4s' }}></div>
       </div>
 
       {/* 网格背景 */}
@@ -104,7 +104,7 @@ export const TopTools = async () => {
           {tools.map((tool, index) => (
             <article 
               key={tool.id} 
-              className="bg-secondary/80 backdrop-blur-sm border border-border-primary rounded-3xl p-8 shadow-dark-large hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] transition-all duration-500 hover:-translate-y-3 group relative overflow-hidden animate-fade-in"
+              className="bg-secondary/80 backdrop-blur-sm border border-border-primary rounded-3xl p-8 shadow-dark-large hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] transition-all duration-500 hover:-translate-y-3 group relative overflow-hidden"
               style={{ animationDelay: `${index * 200}ms` }}
             >
               {/* 背景装饰 */}
@@ -163,7 +163,7 @@ export const TopTools = async () => {
             href="/tools" 
             className="inline-flex items-center space-x-3 bg-gradient-to-r from-accent to-accent-secondary text-primary font-semibold px-10 py-5 rounded-2xl shadow-glow hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all duration-300 transform hover:-translate-y-1 group relative overflow-hidden"
           >
-            <div className="absolute inset-0 bg-shimmer animate-shimmer opacity-20"></div>
+            <div className="absolute inset-0 bg-shimmer opacity-20"></div>
             <span className="relative z-10">查看全部工具</span>
             <svg 
               className="w-5 h-5 relative z-10 transform group-hover:translate-x-1 transition-transform duration-300" 

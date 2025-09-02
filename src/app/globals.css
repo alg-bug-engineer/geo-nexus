@@ -1,182 +1,35 @@
+/* src/app/globals.css (已移除动画) */
 @import "tailwindcss";
 
-/* 添加到 src/app/globals.css 或创建新的 animations.css 文件 */
-
-/* 淡入动画 */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-/* 悬浮效果 */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* 脉冲效果 */
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
+/* 仅保留无性能影响的、基于 transition 的悬停效果和基础样式 */
 
 /* 缩放悬停效果 */
 .hover-scale {
   transition: transform 0.2s ease-in-out;
 }
-
 .hover-scale:hover {
   transform: scale(1.05);
 }
 
-/* 渐变背景动画 */
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animate-gradient {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-}
-
-/* 加载骨架屏 */
-@keyframes shimmer {
-  0% {
-    background-position: -468px 0;
-  }
-  100% {
-    background-position: 468px 0;
-  }
-}
-
-.animate-shimmer {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-}
-
-/* 弹性效果 */
-@keyframes bounce {
-  0%, 20%, 53%, 80%, 100% {
-    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    transform: translate3d(0, 0, 0);
-  }
-  40%, 43% {
-    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-    transform: translate3d(0, -30px, 0);
-  }
-  70% {
-    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-    transform: translate3d(0, -15px, 0);
-  }
-  90% {
-    transform: translate3d(0, -4px, 0);
-  }
-}
-
-.animate-bounce {
-  animation: bounce 1s;
-}
-
-/* 滑入效果 */
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideInFromRight {
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.animate-slideInLeft {
-  animation: slideInFromLeft 0.5s ease-out;
-}
-
-.animate-slideInRight {
-  animation: slideInFromRight 0.5s ease-out;
-}
-
-/* 响应式优化 */
+/* 响应式优化：在用户偏好减少动效时禁用 transition */
 @media (prefers-reduced-motion: reduce) {
-  .animate-fadeIn,
-  .animate-float,
-  .animate-pulse,
-  .animate-gradient,
-  .animate-shimmer,
-  .animate-bounce,
-  .animate-slideInLeft,
-  .animate-slideInRight {
-    animation: none;
-  }
-
   .hover-scale {
     transition: none;
   }
 }
 
-/* 自定义滚动条 */
+/* 自定义滚动条 (对性能影响小，可以保留) */
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
 }
-
 .custom-scrollbar::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 10px;
 }
-
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 10px;
 }
-
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
@@ -193,7 +46,6 @@
   position: relative;
   display: inline-block;
 }
-
 .highlight-effect::after {
   content: '';
   position: absolute;
@@ -205,7 +57,6 @@
   z-index: -1;
   transition: height 0.3s ease;
 }
-
 .highlight-effect:hover::after {
   height: 100%;
 }

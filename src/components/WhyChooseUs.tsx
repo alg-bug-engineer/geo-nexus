@@ -38,9 +38,9 @@ export const WhyChooseUs = () => {
     <section className="py-20 bg-gradient-to-br from-primary via-secondary/30 to-primary relative overflow-hidden">
       {/* 背景装饰 */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-accent rounded-full mix-blend-multiply filter blur-2xl animate-blob"></div>
-        <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-success rounded-full mix-blend-multiply filter blur-2xl animate-blob" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute bottom-1/4 left-1/2 w-64 h-64 bg-accent-secondary rounded-full mix-blend-multiply filter blur-2xl animate-blob" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-accent rounded-full mix-blend-multiply filter blur-2xl"></div>
+        <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-success rounded-full mix-blend-multiply filter blur-2xl" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-1/4 left-1/2 w-64 h-64 bg-accent-secondary rounded-full mix-blend-multiply filter blur-2xl" style={{ animationDelay: '4s' }}></div>
       </div>
 
       <div className="container mx-auto px-4 text-center relative z-10">
@@ -63,7 +63,7 @@ export const WhyChooseUs = () => {
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className={`bg-secondary/80 backdrop-blur-sm p-8 rounded-2xl border ${feature.borderColor} ${feature.hoverBorder} hover:scale-105 transition-all duration-300 group relative overflow-hidden shadow-dark-medium hover:shadow-dark-large animate-fade-in`}
+              className={`bg-secondary/80 backdrop-blur-sm p-8 rounded-2xl border ${feature.borderColor} ${feature.hoverBorder} hover:scale-105 transition-all duration-300 group relative overflow-hidden shadow-dark-medium hover:shadow-dark-large`}
               style={{ animationDelay: `${index * 200}ms` }}
             >
               {/* 背景装饰 */}
@@ -103,7 +103,7 @@ export const WhyChooseUs = () => {
         </div>
         
         {/* 底部 CTA */}
-        <div className="mt-16 animate-fade-in" style={{ animationDelay: '800ms' }}>
+        <div className="mt-16" style={{ animationDelay: '800ms' }}>
           <div className="bg-secondary/60 backdrop-blur-sm rounded-2xl p-8 border border-border-primary shadow-dark-medium">
             <h3 className="text-2xl font-bold text-text-main mb-4">
               准备好开始您的GEO之旅了吗？

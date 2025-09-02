@@ -75,9 +75,9 @@ export default function RootLayout({
           
           {/* 动态背景光点 */}
           <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/30 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-            <div className="absolute top-0 right-1/4 w-96 h-96 bg-accent-secondary/30 rounded-full mix-blend-multiply filter blur-3xl animate-blob" style={{ animationDelay: '2s' }}></div>
-            <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-success/20 rounded-full mix-blend-multiply filter blur-3xl animate-blob" style={{ animationDelay: '4s' }}></div>
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/30 rounded-full mix-blend-multiply filter blur-3xl"></div>
+            <div className="absolute top-0 right-1/4 w-96 h-96 bg-accent-secondary/30 rounded-full mix-blend-multiply filter blur-3xl" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-success/20 rounded-full mix-blend-multiply filter blur-3xl" style={{ animationDelay: '4s' }}></div>
           </div>
           
           {/* 网格背景 */}
@@ -103,7 +103,7 @@ export default function RootLayout({
         {/* 全局加载状态装饰 */}
         <div id="loading-overlay" className="fixed inset-0 bg-primary/90 backdrop-blur-md z-[9999] flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300">
           <div className="flex flex-col items-center space-y-4">
-            <div className="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-full animate-spin"></div>
+            <div className="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-full"></div>
             <p className="text-text-secondary text-sm">正在加载中...</p>
           </div>
         </div>
