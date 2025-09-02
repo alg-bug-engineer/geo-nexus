@@ -1,0 +1,53 @@
+<svg width="320" height="90" viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="techGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D4AA;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#64FFDA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0099CC;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0A192F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="subtitleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#64748b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0099CC;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景圆形 - 增大 -->
+  <circle cx="45" cy="45" r="38" fill="#0A192F" opacity="0.03"/>
+  
+  <!-- 主要图标元素 - 搜索与优化的结合 -->
+  <!-- 搜索镜框 - 调整位置和大小 -->
+  <circle cx="36" cy="36" r="14" fill="none" stroke="url(#techGradient)" stroke-width="3.5"/>
+  
+  <!-- 搜索柄 - 调整长度 -->
+  <line x1="46.5" y1="46.5" x2="55" y2="55" stroke="url(#techGradient)" stroke-width="3.5" stroke-linecap="round"/>
+  
+  <!-- 内部上升箭头 - 代表优化提升，调整位置 -->
+  <path d="M31 41 L36 31 L41 41" fill="none" stroke="#00D4AA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="36" y1="31" x2="36" y2="41" stroke="#00D4AA" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- 科技感连接点 - 重新定位 -->
+  <circle cx="57" cy="28" r="2.5" fill="#64FFDA"/>
+  <circle cx="63" cy="34" r="2" fill="#00D4AA" opacity="0.8"/>
+  <circle cx="59" cy="40" r="1.5" fill="#0099CC" opacity="0.6"/>
+  
+  <!-- 连接线 - 优化路径 -->
+  <path d="M55 30 Q59 29 57 28" fill="none" stroke="#64FFDA" stroke-width="1.5" opacity="0.7"/>
+  <path d="M57 28 Q61 32 63 34" fill="none" stroke="#00D4AA" stroke-width="1.5" opacity="0.6"/>
+  <path d="M63 34 Q60 37 59 40" fill="none" stroke="#0099CC" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- 主标题文字 - 调整大小和间距 -->
+  <text x="95" y="42" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="url(#textGradient)">GEO</text>
+  <text x="165" y="42" font-family="Inter, sans-serif" font-size="28" font-weight="300" fill="#0A192F">Nexus</text>
+  
+  <!-- 副标题 - 优化颜色和位置 -->
+  <text x="95" y="58" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="url(#subtitleGradient)" letter-spacing="2px">INTELLIGENCE HUB</text>
+  
+  <!-- 装饰性元素 - 重新设计 -->
+  <rect x="95" y="67" width="35" height="2.5" fill="url(#techGradient)" rx="1.25"/>
+  <rect x="135" y="67" width="20" height="2.5" fill="#64FFDA" opacity="0.7" rx="1.25"/>
+  <rect x="160" y="67" width="12" height="2.5" fill="#0099CC" opacity="0.5" rx="1.25"/>
+</svg>
