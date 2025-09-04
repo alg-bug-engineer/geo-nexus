@@ -16,9 +16,9 @@ export const Header = () => {
     { name: 'GEO资讯', href: '/insights' },
     { name: '工具导航', href: '/navigate' },
     { name: '工具评测', href: '/tools' },
+    { name: '资源下载', href: '/resources' }, // 新增
     { name: '关于我们', href: '/about' },
   ];
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };

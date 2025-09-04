@@ -360,44 +360,99 @@ const NavigatePage = () => {
               </div>
             </div>
 
-            {/* 分类过滤器 - 优化：条件显示 */}
+            {/* 高级分类过滤器 - 水平滚动版本 */}
             {(!finalCompactState || !isScrolled) && (
               <div className={`transition-all duration-500 overflow-hidden ${
-                finalCompactState && isScrolled ? 'max-h-0 opacity-0' : 'max-h-32 opacity-100'
+                finalCompactState && isScrolled ? 'max-h-0 opacity-0' : 'max-h-20 opacity-100'
               }`}>
-                <div className="flex flex-wrap justify-center gap-3 mb-6">
-                  <button
-                    onClick={() => setActiveCategory('all')}
-                    className={`px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-200 border ${
-                      activeCategory === 'all'
-                        ? 'bg-accent text-primary shadow-glow border-accent hover:bg-accent-hover'
-                        : 'bg-secondary/50 text-text-secondary hover:bg-tertiary hover:text-text-main border-border-secondary hover:border-accent/50'
-                    }`}
+                <div className="relative mb-6">
+                  {/* 左侧渐变遮罩 */}
+                  <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-primary to-transparent z-10 pointer-events-none"></div>
+                  
+                  {/* 右侧渐变遮罩 */}
+                  <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-primary to-transparent z-10 pointer-events-none"></div>
+                  
+                  {/* 水平滚动容器 */}
+                  <div 
+                    className="flex gap-3 overflow-x-auto scrollbar-hide px-8 py-2"
+                    style={{
+                      scrollbarWidth: 'none', /* Firefox */
+                      msOverflowStyle: 'none', /* IE and Edge */
+                    }}
                   >
-                    全部工具
-                    <span className="ml-2 text-xs opacity-75">({navItems.length})</span>
-                  </button>
-                  {categories.map((category) => {
-                    const count = navItems.filter(item => item.category === category.key).length;
-                    return (
-                      <button
-                        key={category.key}
-                        onClick={() => setActiveCategory(category.key)}
-                        className={`flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-200 border ${
-                          activeCategory === category.key
-                            ? 'bg-accent text-primary shadow-glow border-accent hover:bg-accent-hover'
-                            : 'bg-secondary/50 text-text-secondary hover:bg-tertiary hover:text-text-main border-border-secondary hover:border-accent/50'
-                        }`}
-                      >
-                        <span>{category.icon}</span>
-                        {category.name}
-                        <span className="text-xs opacity-75">({count})</span>
-                      </button>
-                    );
-                  })}
+                    {/* 全部工具按钮 */}
+                    <button
+                      onClick={() => setActiveCategory('all')}
+                      className={`flex-shrink-0 px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-200 border whitespace-nowrap ${
+                        activeCategory === 'all'
+                          ? 'bg-accent text-primary shadow-glow border-accent hover:bg-accent-hover'
+                          : 'bg-secondary/50 text-text-secondary hover:bg-tertiary hover:text-text-main border-border-secondary hover:border-accent/50'
+                      }`}
+                    >
+                      全部工具
+                      <span className="ml-2 text-xs opacity-75">({navItems.length})</span>
+                    </button>
+                    
+                    {/* 分类按钮 */}
+                    {categories.map((category) => {
+                      const count = navItems.filter(item => item.category === category.key).length;
+                      return (
+                        <button
+                          key={category.key}
+                          onClick={() => setActiveCategory(category.key)}
+                          className={`flex-shrink-0 flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-200 border whitespace-nowrap ${
+                            activeCategory === category.key
+                              ? 'bg-accent text-primary shadow-glow border-accent hover:bg-accent-hover'
+                              : 'bg-secondary/50 text-text-secondary hover:bg-tertiary hover:text-text-main border-border-secondary hover:border-accent/50'
+                          }`}
+                        >
+                          <span>{category.icon}</span>
+                          {category.name}
+                          <span className="text-xs opacity-75">({count})</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  
+                  {/* 滚动提示（仅在移动端显示） */}
+                  <div className="md:hidden text-center mt-2">
+                    <p className="text-xs text-text-muted flex items-center justify-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+                      </svg>
+                      滑动查看更多分类
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
+
+            {/* 添加自定义CSS样式到全局CSS或组件内 */}
+            <style jsx>{`
+              /* 隐藏滚动条但保持滚动功能 */
+              .scrollbar-hide {
+                -ms-overflow-style: none;  /* IE and Edge */
+                scrollbar-width: none;  /* Firefox */
+              }
+              .scrollbar-hide::-webkit-scrollbar {
+                display: none;  /* Chrome, Safari and Opera */
+              }
+              
+              /* 平滑滚动 */
+              .scrollbar-hide {
+                scroll-behavior: smooth;
+              }
+              
+              /* 在触摸设备上改善滚动体验 */
+              @media (hover: none) and (pointer: coarse) {
+                .scrollbar-hide {
+                  -webkit-overflow-scrolling: touch;
+                }
+              }
+            `}</style>
 
             {/* 高级过滤器面板 */}
             {showFilters && (
