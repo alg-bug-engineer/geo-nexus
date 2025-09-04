@@ -1,4 +1,4 @@
-// src/app/layout.tsx (优化配色版本)
+// src/app/layout.tsx (更新AdSense配置)
 import type { Metadata } from 'next'
 import Script from 'next/script';
 import './globals.css'
@@ -10,9 +10,8 @@ export const metadata: Metadata = {
   description: 'The leading Generative Engine Optimization (GEO) information and tool evaluation center.',
   keywords: ['GEO', '生成式引擎优化', 'AI工具', 'SEO', '数字营销'],
   authors: [{ name: 'GEO Nexus Team' }],
-  // viewport: 'width=device-width, initial-scale=1',
-  // themeColor: '#3b82f6',
 }
+
 // 添加这个新的导出：
 export const viewport = {
   width: 'device-width',
@@ -29,9 +28,12 @@ export default function RootLayout({
     <html lang="zh-CN" className="scroll-smooth dark"> 
 
       <head>
-        {/* AdSense Script */}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4749029061464896"
-          crossOrigin="anonymous"></script>
+        {/* ✅ 更新后的 AdSense Script - 使用新的 client ID */}
+        <script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6590151921493796"
+          crossOrigin="anonymous"
+        />
         
         {/* Google Analytics Scripts */}
         <Script
@@ -113,7 +115,6 @@ export default function RootLayout({
           id="back-to-top"
           className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-accent to-accent-secondary text-primary rounded-full shadow-glow hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300 transform hover:scale-110 z-50 opacity-0 pointer-events-none"
           aria-label="返回顶部"
-          // onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <svg className="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
