@@ -1,10 +1,10 @@
-// src/app/navigate/page.tsx - 大幅增强的导航页面
+// src/app/navigate/page.tsx - 优化版本
 'use client';
 
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { categories, navItems } from '@/data/navigation';
 import NavigationCard from '@/components/NavigationCard';
-import { Search, Filter, Grid, List, TrendingUp, Star, DollarSign, Users, Zap } from 'lucide-react';
+import { Search, Filter, Grid, List, TrendingUp, Star, DollarSign, Users, Zap, ChevronDown, ChevronUp, X, RotateCcw } from 'lucide-react';
 
 // 排序选项
 type SortOption = 'relevance' | 'name' | 'rating' | 'popularity' | 'newest' | 'oldest';
@@ -27,6 +27,12 @@ const NavigatePage = () => {
   const [sortBy, setSortBy] = useState<SortOption>('relevance');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [showFilters, setShowFilters] = useState<boolean>(false);
+  
+  // 新增优化状态
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [isCompact, setIsCompact] = useState<boolean>(false);
+  const [userPreference, setUserPreference] = useState<'auto' | 'expanded' | 'compact'>('auto');
+  
   const [filters, setFilters] = useState<FilterOptions>({
     pricing: [],
     rating: null,
@@ -34,6 +40,17 @@ const NavigatePage = () => {
     company: [],
     features: []
   });
+
+  // 监听滚动 - 新增
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 100;
+      setIsScrolled(scrolled);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // 获取所有唯一的标签、公司和功能
   const availableOptions = useMemo(() => {
@@ -109,12 +126,34 @@ const NavigatePage = () => {
         items.sort((a, b) => (a.launchYear || 0) - (b.launchYear || 0));
         break;
       default: // relevance
-        // 保持原有顺序，或基于搜索相关性排序
         break;
     }
 
     return items;
   }, [activeCategory, searchTerm, sortBy, filters]);
+
+  // 智能紧凑模式判断 - 新增
+  const shouldAutoCompact = useMemo(() => {
+    if (userPreference === 'expanded') return false;
+    if (userPreference === 'compact') return true;
+    
+    // 自动模式：结果少于4个或滚动时收缩
+    return filteredAndSortedItems.length <= 3 || isScrolled;
+  }, [filteredAndSortedItems.length, isScrolled, userPreference]);
+
+  // 最终的紧凑状态
+  const finalCompactState = userPreference === 'auto' ? shouldAutoCompact : isCompact;
+
+  // 是否有活跃的过滤条件 - 新增
+  const hasActiveFilters = useMemo(() => {
+    return activeCategory !== 'all' || 
+           searchTerm !== '' || 
+           filters.pricing.length > 0 || 
+           filters.rating !== null || 
+           filters.tags.length > 0 ||
+           filters.company.length > 0 ||
+           filters.features.length > 0;
+  }, [activeCategory, searchTerm, filters]);
 
   // 重置过滤器
   const resetFilters = useCallback(() => {
@@ -127,7 +166,14 @@ const NavigatePage = () => {
     });
     setSearchTerm('');
     setActiveCategory('all');
+    setShowFilters(false);
   }, []);
+
+  // 切换紧凑模式 - 新增
+  const toggleCompact = useCallback(() => {
+    setIsCompact(!isCompact);
+    setUserPreference(isCompact ? 'expanded' : 'compact');
+  }, [isCompact]);
 
   // 更新过滤器的辅助函数
   const updateFilter = useCallback((key: keyof FilterOptions, value: string[] | number | null) => {
@@ -150,8 +196,11 @@ const NavigatePage = () => {
   return (
     <div className="bg-primary min-h-screen">
       <div className="container mx-auto px-4 py-8 sm:py-12">
-        {/* 页面头部 */}
-        <header className="text-center mb-12">
+        
+        {/* 页面头部 - 优化：滚动时缩小 */}
+        <header className={`text-center transition-all duration-500 ${
+          isScrolled || finalCompactState ? 'mb-6' : 'mb-12'
+        }`}>
           <div className="flex justify-center mb-6">
             <div className="relative">
               <div className="w-20 h-20 bg-gradient-to-br from-accent/20 to-accent-secondary/20 backdrop-blur-sm rounded-3xl flex items-center justify-center border border-accent/20 shadow-glow">
@@ -163,39 +212,48 @@ const NavigatePage = () => {
             </div>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-text-main mb-4">
+          <h1 className={`font-extrabold text-text-main mb-4 transition-all duration-500 ${
+            isScrolled || finalCompactState ? 'text-2xl md:text-3xl' : 'text-4xl sm:text-5xl lg:text-6xl'
+          }`}>
             <span className="bg-gradient-to-r from-accent to-accent-secondary bg-clip-text text-transparent">
               GEO 工具大全
             </span>
           </h1>
           
-          <p className="mt-4 text-lg md:text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
-            发现和探索 <span className="text-accent font-semibold">{stats.total}+</span> 个最好用的生成式引擎优化工具，
-            涵盖 <span className="text-accent-secondary font-semibold">{stats.categories_count}</span> 个分类，
-            助您在GEO时代脱颖而出
-          </p>
+          {/* 副标题 - 滚动时隐藏 */}
+          {!isScrolled && !finalCompactState && (
+            <p className="mt-4 text-lg md:text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
+              发现和探索 <span className="text-accent font-semibold">{stats.total}+</span> 个最好用的生成式引擎优化工具，
+              涵盖 <span className="text-accent-secondary font-semibold">{stats.categories_count}</span> 个分类，
+              助您在GEO时代脱颖而出
+            </p>
+          )}
 
-          {/* 统计卡片 */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 max-w-2xl mx-auto">
-            {[
-              { label: '工具总数', value: stats.total, icon: Zap, color: 'text-accent' },
-              { label: '分类数量', value: stats.categories_count, icon: Grid, color: 'text-accent-secondary' },
-              { label: '公司数量', value: stats.companies_count, icon: Users, color: 'text-success' },
-              { label: '当前显示', value: stats.filtered, icon: Filter, color: 'text-warning' }
-            ].map((stat, index) => (
-              <div key={index} className="bg-secondary/50 backdrop-blur-sm rounded-xl p-4 border border-border-primary hover:border-accent/30 transition-all duration-300">
-                <div className="flex items-center justify-center mb-2">
-                  <stat.icon className={`w-5 h-5 ${stat.color}`} />
+          {/* 统计卡片 - 紧凑模式时隐藏 */}
+          {!finalCompactState && (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 max-w-2xl mx-auto">
+              {[
+                { label: '工具总数', value: stats.total, icon: Zap, color: 'text-accent' },
+                { label: '分类数量', value: stats.categories_count, icon: Grid, color: 'text-accent-secondary' },
+                { label: '公司数量', value: stats.companies_count, icon: Users, color: 'text-success' },
+                { label: '当前显示', value: stats.filtered, icon: Filter, color: 'text-warning' }
+              ].map((stat, index) => (
+                <div key={index} className="bg-secondary/50 backdrop-blur-sm rounded-xl p-4 border border-border-primary hover:border-accent/30 transition-all duration-300">
+                  <div className="flex items-center justify-center mb-2">
+                    <stat.icon className={`w-5 h-5 ${stat.color}`} />
+                  </div>
+                  <div className="text-2xl font-bold text-text-main">{stat.value}</div>
+                  <div className="text-sm text-text-secondary">{stat.label}</div>
                 </div>
-                <div className="text-2xl font-bold text-text-main">{stat.value}</div>
-                <div className="text-sm text-text-secondary">{stat.label}</div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </header>
 
-        {/* 搜索和过滤区域 */}
-        <div className="sticky top-20 z-30 bg-primary/90 backdrop-blur-md py-6 mb-8 rounded-2xl border border-border-primary shadow-dark-large">
+        {/* 搜索和过滤区域 - 优化：智能收缩 */}
+        <div className={`sticky z-30 bg-primary/90 backdrop-blur-md py-6 mb-8 rounded-2xl border border-border-primary shadow-dark-large transition-all duration-500 ${
+          isScrolled ? 'top-4' : 'top-20'
+        }`}>
           <div className="max-w-6xl mx-auto px-6">
             
             {/* 搜索栏 */}
@@ -211,9 +269,9 @@ const NavigatePage = () => {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-text-muted" />
                 
                 {/* 搜索结果计数 */}
-                {(searchTerm || Object.values(filters).some(f => Array.isArray(f) ? f.length > 0 : f !== null)) && (
+                {(searchTerm || hasActiveFilters) && (
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-text-muted bg-tertiary/50 px-3 py-1 rounded-full">
-                    {filteredAndSortedItems.length} 个结果
+                    {stats.filtered} 个结果
                   </div>
                 )}
               </div>
@@ -224,7 +282,9 @@ const NavigatePage = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as SortOption)}
-                  className="px-4 py-3 bg-secondary/50 border border-border-secondary rounded-xl text-text-main focus:ring-2 focus:ring-accent focus:outline-none min-w-[140px]"
+                  className={`bg-secondary/50 border border-border-secondary rounded-xl text-text-main focus:ring-2 focus:ring-accent focus:outline-none transition-all duration-200 ${
+                    finalCompactState ? 'px-3 py-2 text-sm min-w-[120px]' : 'px-4 py-3 min-w-[140px]'
+                  }`}
                 >
                   <option value="relevance">相关性</option>
                   <option value="name">名称 A-Z</option>
@@ -263,50 +323,81 @@ const NavigatePage = () => {
                 {/* 过滤器切换 */}
                 <button
                   onClick={() => setShowFilters(!showFilters)}
-                  className={`flex items-center gap-2 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${
+                  className={`flex items-center gap-2 rounded-xl font-medium transition-all duration-200 relative ${
+                    finalCompactState ? 'px-3 py-2' : 'px-4 py-3'
+                  } ${
                     showFilters
                       ? 'bg-accent text-primary shadow-md'
                       : 'bg-secondary/50 border border-border-secondary text-text-secondary hover:text-text-main hover:bg-tertiary/50'
                   }`}
                 >
                   <Filter className="w-4 h-4" />
-                  过滤
+                  {!finalCompactState && '过滤'}
+                  {hasActiveFilters && (
+                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-accent-secondary rounded-full border border-primary"></span>
+                  )}
                 </button>
+
+                {/* 紧凑模式切换 - 新增 */}
+                <button
+                  onClick={toggleCompact}
+                  className="p-3 bg-secondary/50 border border-border-secondary rounded-xl text-text-secondary hover:text-text-main hover:bg-tertiary/50 transition-all duration-200"
+                  title={finalCompactState ? '展开搜索区域' : '收缩搜索区域'}
+                >
+                  {finalCompactState ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
+                </button>
+
+                {/* 重置按钮 - 新增 */}
+                {hasActiveFilters && (
+                  <button
+                    onClick={resetFilters}
+                    className="p-3 bg-warning/20 border border-warning/30 text-warning rounded-xl hover:bg-warning/30 transition-all duration-200"
+                    title="重置所有过滤条件"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                  </button>
+                )}
               </div>
             </div>
 
-            {/* 分类过滤器 */}
-            <div className="flex flex-wrap justify-center gap-3 mb-6">
-              <button
-                onClick={() => setActiveCategory('all')}
-                className={`px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-200 border ${
-                  activeCategory === 'all'
-                    ? 'bg-accent text-primary shadow-glow border-accent hover:bg-accent-hover'
-                    : 'bg-secondary/50 text-text-secondary hover:bg-tertiary hover:text-text-main border-border-secondary hover:border-accent/50'
-                }`}
-              >
-                全部工具
-                <span className="ml-2 text-xs opacity-75">({navItems.length})</span>
-              </button>
-              {categories.map((category) => {
-                const count = navItems.filter(item => item.category === category.key).length;
-                return (
+            {/* 分类过滤器 - 优化：条件显示 */}
+            {(!finalCompactState || !isScrolled) && (
+              <div className={`transition-all duration-500 overflow-hidden ${
+                finalCompactState && isScrolled ? 'max-h-0 opacity-0' : 'max-h-32 opacity-100'
+              }`}>
+                <div className="flex flex-wrap justify-center gap-3 mb-6">
                   <button
-                    key={category.key}
-                    onClick={() => setActiveCategory(category.key)}
-                    className={`flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-200 border ${
-                      activeCategory === category.key
+                    onClick={() => setActiveCategory('all')}
+                    className={`px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-200 border ${
+                      activeCategory === 'all'
                         ? 'bg-accent text-primary shadow-glow border-accent hover:bg-accent-hover'
                         : 'bg-secondary/50 text-text-secondary hover:bg-tertiary hover:text-text-main border-border-secondary hover:border-accent/50'
                     }`}
                   >
-                    <span>{category.icon}</span>
-                    {category.name}
-                    <span className="text-xs opacity-75">({count})</span>
+                    全部工具
+                    <span className="ml-2 text-xs opacity-75">({navItems.length})</span>
                   </button>
-                );
-              })}
-            </div>
+                  {categories.map((category) => {
+                    const count = navItems.filter(item => item.category === category.key).length;
+                    return (
+                      <button
+                        key={category.key}
+                        onClick={() => setActiveCategory(category.key)}
+                        className={`flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-200 border ${
+                          activeCategory === category.key
+                            ? 'bg-accent text-primary shadow-glow border-accent hover:bg-accent-hover'
+                            : 'bg-secondary/50 text-text-secondary hover:bg-tertiary hover:text-text-main border-border-secondary hover:border-accent/50'
+                        }`}
+                      >
+                        <span>{category.icon}</span>
+                        {category.name}
+                        <span className="text-xs opacity-75">({count})</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* 高级过滤器面板 */}
             {showFilters && (
@@ -396,51 +487,67 @@ const NavigatePage = () => {
                 <div className="flex justify-end mt-6 pt-4 border-t border-border-secondary">
                   <button
                     onClick={resetFilters}
-                    className="px-4 py-2 text-sm text-text-secondary hover:text-text-main transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 text-sm text-text-secondary hover:text-text-main transition-colors"
                   >
+                    <RotateCcw className="w-4 h-4" />
                     重置所有过滤器
                   </button>
                 </div>
               </div>
             )}
 
-            {/* 当前过滤状态 */}
-            {(activeCategory !== 'all' || searchTerm || Object.values(filters).some(f => Array.isArray(f) ? f.length > 0 : f !== null)) && (
+            {/* 当前过滤状态 - 新增 */}
+            {hasActiveFilters && (
               <div className="flex items-center gap-3 text-sm">
                 <span className="text-text-light">当前过滤:</span>
                 <div className="flex gap-2 flex-wrap">
                   {activeCategory !== 'all' && (
-                    <span className="inline-flex items-center gap-1 bg-accent/10 text-accent px-3 py-1.5 rounded-lg font-medium border border-accent/20">
+                    <span className="inline-flex items-center gap-1 bg-success/10 text-success px-3 py-1.5 rounded-lg font-medium border border-success/20 backdrop-blur-sm">
                       {categories.find(cat => cat.key === activeCategory)?.name}
                       <button 
                         onClick={() => setActiveCategory('all')}
-                        className="hover:text-accent/80"
+                        className="hover:text-success/80"
                       >
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+                        <X className="w-3 h-3" />
                       </button>
                     </span>
                   )}
                   {searchTerm && (
-                    <span className="inline-flex items-center gap-1 bg-accent-secondary/10 text-accent-secondary px-3 py-1.5 rounded-lg font-medium border border-accent-secondary/20">
+                    <span className="inline-flex items-center gap-1 bg-accent-secondary/10 text-accent-secondary px-3 py-1.5 rounded-lg font-medium border border-accent-secondary/20 backdrop-blur-sm">
                       &ldquo;{searchTerm}&rdquo;
                       <button 
                         onClick={() => setSearchTerm('')}
                         className="hover:text-accent-secondary/80"
                       >
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+                        <X className="w-3 h-3" />
                       </button>
                     </span>
                   )}
-                  {/* 其他过滤器标签... */}
                 </div>
               </div>
             )}
+
+            {/* 结果统计 - 优化 */}
+            <div className={`flex justify-between items-center mt-4 transition-all duration-300 ${
+              finalCompactState ? 'text-xs' : 'text-sm'
+            }`}>
+              <div className="text-text-secondary">
+                <p>共找到 <span className="font-semibold text-accent">{stats.filtered}</span> 个工具</p>
+              </div>
+              
+              {/* 性能提示 - 新增 */}
+              {stats.filtered <= 3 && stats.filtered > 0 && (
+                <div className="text-xs text-warning flex items-center gap-1">
+                  <Zap className="w-3 h-3" />
+                  结果较少，已自动优化显示
+                </div>
+              )}
+            </div>
           </div>
         </div>
+
+        {/* 间距调整 */}
+        <div className="mb-8"></div>
 
         {/* 工具展示区域 */}
         {filteredAndSortedItems.length > 0 ? (
@@ -467,7 +574,7 @@ const NavigatePage = () => {
           />
         )}
 
-        {/* 加载更多按钮（如果需要分页） */}
+        {/* 加载更多按钮 */}
         {filteredAndSortedItems.length > 0 && (
           <div className="text-center mt-16">
             <div className="inline-flex flex-col items-center gap-4 bg-secondary/50 backdrop-blur-sm rounded-2xl p-8 border border-border-primary">
