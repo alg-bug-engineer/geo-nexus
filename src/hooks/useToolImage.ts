@@ -5,7 +5,7 @@
 
 // src/hooks/useToolImage.ts
 import { useState, useEffect } from 'react';
-import { getToolImage, getToolImages } from '@/utils/localImageUtils';
+import { getToolImage } from '@/utils/localImageUtils';
 
 export function useToolImage(
   toolName: string, 
