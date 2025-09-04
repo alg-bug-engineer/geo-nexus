@@ -1,4 +1,4 @@
-// src/app/layout.tsx (更新AdSense配置)
+// src/app/layout.tsx (更新Google Analytics配置)
 import type { Metadata } from 'next'
 import Script from 'next/script';
 import './globals.css'
@@ -35,10 +35,10 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         
-        {/* Google Analytics Scripts */}
+        {/* ✅ 更新后的 Google Analytics Scripts - 新的跟踪ID */}
         <Script
           strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-LWQ658HC60`}
+          src={`https://www.googletagmanager.com/gtag/js?id=G-JSE3PXMCSS`}
         />
         <Script
           id="google-analytics"
@@ -48,7 +48,7 @@ export default function RootLayout({
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-LWQ658HC60');
+              gtag('config', 'G-JSE3PXMCSS');
             `,
           }}
         />
