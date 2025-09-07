@@ -124,8 +124,10 @@ export async function getArticlesPaginated({
   const apiUrl = `${STRAPI_URL}?${params.toString()}`;
   
   try {
+    // 关键改动：将 cache: 'no-store' 修改为 next: { revalidate: 3600 }
+    // 这将启用增量静态再生（ISR），数据每小时重新验证一次，而不是每次请求都重新获取
     const response = await fetch(apiUrl, { 
-      cache: 'no-store',
+      next: { revalidate: 3600 }, // 每小时重新验证一次
       headers: {
         'Content-Type': 'application/json',
       }

@@ -13,7 +13,8 @@ interface StrapiTool {
 async function getTopTools(): Promise<StrapiTool[]> {
   const STRAPI_URL = `https://api.ai-knowledgepoints.cn/api/tools?sort=overall_score:desc&pagination[limit]=3`;
   try {
-    const response = await fetch(STRAPI_URL, { cache: 'no-store' });
+    // const response = await fetch(STRAPI_URL, { cache: 'no-store' });
+    const response = await fetch(STRAPI_URL, { next: { revalidate: 3600 } });
     if (!response.ok) return [];
     const data = await response.json();
     return data.data;

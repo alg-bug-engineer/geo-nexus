@@ -22,13 +22,15 @@ interface ResourceFile {
 
 // 获取资源文件信息
 async function getResourceFiles(): Promise<ResourceFile[]> {
-  const publicDir = path.join(process.cwd(), 'public');
+  // const publicDir = path.join(process.cwd(), 'public');
+  const resourcesDir = path.join(process.cwd(), 'public/downloads');
   
   try {
-    const files = await glob('**/*.{pdf,pptx,html}', { cwd: publicDir });
+    // const files = await glob('**/*.{pdf,pptx,html}', { cwd: publicDir });
+    const files = await glob('**/*.{pdf,pptx,html}', { cwd: resourcesDir });
     
     const resources: ResourceFile[] = files.map(file => {
-      const stats = fs.statSync(path.join(publicDir, file));
+      const stats = fs.statSync(path.join(resourcesDir, file));
       const ext = path.extname(file).slice(1) as 'pdf' | 'pptx' | 'html';
       const fileName = path.basename(file, path.extname(file));
       
@@ -58,7 +60,7 @@ async function getResourceFiles(): Promise<ResourceFile[]> {
       
       return {
         name: fileName,
-        path: `/${file.replace(/\\/g, '/')}`,
+        path: `/downloads/${file.replace(/\\/g, '/')}`,
         size: formatFileSize(stats.size),
         type: ext,
         category: getCategory(file),

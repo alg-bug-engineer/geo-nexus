@@ -36,7 +36,8 @@ type ArticlePageProps = {
 async function getSingleArticle(slug: string): Promise<Article | null> {
     const STRAPI_URL = `https://api.ai-knowledgepoints.cn/api/articles?filters[slug][$eq]=${slug}`;
     try {
-        const response = await fetch(STRAPI_URL, { cache: 'no-store' });
+        // 关键改动：优化数据获取策略，启用ISR
+        const response = await fetch(STRAPI_URL, { next: { revalidate: 3600 } }); // 每小时重新验证
         if (!response.ok) return null;
         const data = await response.json();
         if (data.data && data.data.length > 0) {
@@ -56,7 +57,6 @@ async function getSingleArticle(slug: string): Promise<Article | null> {
         }
         return null;
     } catch (error) {
-        // 【修复】: 使用 error 变量，解决 no-unused-vars 警告
         console.error("Error fetching single article:", error);
         return null;
     }
@@ -87,7 +87,6 @@ async function getRelatedArticles(category?: string, currentArticleSlug?: string
       publishedAt: new Date().toISOString(), 
     }));
   } catch (error) {
-    // 【修复】: 使用 error 变量，解决 no-unused-vars 警告
     console.error("Error fetching related articles:", error);
     return [];
   }

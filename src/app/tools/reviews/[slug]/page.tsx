@@ -23,7 +23,9 @@ interface StrapiTool {
 async function getSingleTool(slug: string): Promise<StrapiTool | null> {
   const STRAPI_URL = `https://api.ai-knowledgepoints.cn/api/tools?filters[slug][$eq]=${slug}`;
   try {
-    const response = await fetch(STRAPI_URL, { cache: 'no-store' });
+    // const response = await fetch(STRAPI_URL, { cache: 'no-store' });
+    const response = await fetch(STRAPI_URL, { next: { revalidate: 3600 } }); // 3600秒 = 1小时
+
     if (!response.ok) return null;
     const data = await response.json();
     if (data.data && data.data.length > 0) {

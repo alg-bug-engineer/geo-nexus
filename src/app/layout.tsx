@@ -1,9 +1,13 @@
-// src/app/layout.tsx (更新Google Analytics配置)
+// src/app/layout.tsx (已移除加载脚本并优化字体)
 import type { Metadata } from 'next'
 import Script from 'next/script';
+import { Inter } from 'next/font/google'; // 关键改动 1: 导入 next/font
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+
+// 关键改动 2: 初始化字体
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
   title: 'GEO Nexus - Your GEO Intelligence Hub',
@@ -12,7 +16,6 @@ export const metadata: Metadata = {
   authors: [{ name: 'GEO Nexus Team' }],
 }
 
-// 添加这个新的导出：
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -25,17 +28,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="zh-CN" className="scroll-smooth dark"> 
+    // 关键改动 3: 将字体类名应用到 html 标签
+    <html lang="zh-CN" className={`${inter.className} scroll-smooth dark`}> 
 
       <head>
-        {/* ✅ 更新后的 AdSense Script - 使用新的 client ID */}
         <script 
           async 
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6590151921493796"
           crossOrigin="anonymous"
         />
         
-        {/* ✅ 更新后的 Google Analytics Scripts - 新的跟踪ID */}
         <Script
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=G-JSE3PXMCSS`}
@@ -53,9 +55,7 @@ export default function RootLayout({
           }}
         />
         
-        {/* 预加载关键资源 */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* 关键改动 4: 移除 Google Fonts 的 preconnect link 标签，因为 next/font 会自动处理 */}
         
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -102,14 +102,8 @@ export default function RootLayout({
           <Footer />
         </div>
         
-        {/* 全局加载状态装饰 */}
-        <div id="loading-overlay" className="fixed inset-0 bg-primary/90 backdrop-blur-md z-[9999] flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300">
-          <div className="flex flex-col items-center space-y-4">
-            <div className="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-full"></div>
-            <p className="text-text-secondary text-sm">正在加载中...</p>
-          </div>
-        </div>
-        
+        {/* 关键改动 5: 移除全局加载状态装饰的 HTML 结构 */}
+
         {/* 返回顶部按钮 */}
         <button 
           id="back-to-top"
@@ -169,25 +163,7 @@ export default function RootLayout({
               });
             }
             
-            // 页面切换时的加载状态
-            let loadingTimeout;
-            document.addEventListener('click', function(e) {
-              if (e.target.tagName === 'A' && e.target.href && !e.target.href.includes('#') && !e.target.target) {
-                const overlay = document.getElementById('loading-overlay');
-                overlay.style.opacity = '1';
-                overlay.style.pointerEvents = 'auto';
-                
-                // 防止加载状态卡住
-                loadingTimeout = setTimeout(() => {
-                  overlay.style.opacity = '0';
-                  overlay.style.pointerEvents = 'none';
-                }, 3000);
-              }
-            });
-            
-            window.addEventListener('beforeunload', () => {
-              clearTimeout(loadingTimeout);
-            });
+            // 关键改动 6: 移除页面切换时的加载状态脚本
           `}
         </Script>
       </body>

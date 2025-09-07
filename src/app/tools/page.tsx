@@ -20,7 +20,8 @@ async function getTools(): Promise<StrapiTool[]> {
   const STRAPI_URL = 'https://api.ai-knowledgepoints.cn/api/tools?sort=name:asc';
   
   try {
-    const response = await fetch(STRAPI_URL, { cache: 'no-store' });
+    // const response = await fetch(STRAPI_URL, { cache: 'no-store' });
+    const response = await fetch(STRAPI_URL, { next: { revalidate: 3600 } });
     if (!response.ok) {
       throw new Error('Failed to fetch tools');
     }
