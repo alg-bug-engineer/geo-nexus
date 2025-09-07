@@ -2,7 +2,7 @@
 import React from 'react';
 import { 
   Search, Filter, Grid, List, ChevronDown, ChevronUp, X, 
-  DollarSign, Star, Users, Zap, RotateCcw 
+  DollarSign, Star, Zap, RotateCcw 
 } from 'lucide-react';
 
 interface OptimizedSearchAreaProps {
